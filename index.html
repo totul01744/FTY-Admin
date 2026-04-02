@@ -331,9 +331,9 @@ select.fi2{cursor:pointer;}
 /* ════════════════════════
    Firebase REST API
 ════════════════════════ */
-var APIKEY   = "AIzaSyCr2G8jyk_XfWgn7TSjBw3br3b9J1xWRH8";
-var PROJECT  = "earning-bot-31c7d";
-var ADMIN_UID= "d3kLDCe2yBTuetoVqEQhZyYI4WB2";
+var APIKEY   = "AIzaSyDcBtQ9PtYZg8abUMaqk1EmOTOdPIT7ZxE";
+var PROJECT  = "fyp-king";
+var ADMIN_UID= "OKU1zI23e3MAm6fUyqyifyOyn5n1";
 var AUTHURL  = "https://identitytoolkit.googleapis.com/v1/accounts:";
 var FSURL    = "https://firestore.googleapis.com/v1/projects/"+PROJECT+"/databases/(default)/documents/";
 var ADM_PASS_KEY = 'fyp_adm_pass_v5';
@@ -393,8 +393,30 @@ async function getAllUsers(){
   var r=await fetch(FSURL+'users',{headers:fsh()}); var d=await r.json();
   return (d.documents||[]).map(function(doc){return frFS(doc);}).filter(Boolean);
 }
-async function getSetting(key){ return await fsGet('settings',key); }
-async function saveSetting(key,val){ await fsSet('settings',key,val); }
+async function getSetting(key){
+  var d = await fsGet('settings', key);
+  if(!d) return null;
+  // JSON string গুলো parse করো
+  Object.keys(d).forEach(function(k){
+    if(typeof d[k] === 'string' && (d[k].startsWith('[') || d[k].startsWith('{'))){
+      try{ d[k] = JSON.parse(d[k]); }catch(e){}
+    }
+  });
+  return d;
+}
+async function saveSetting(key,val){
+  // complex objects JSON stringify করে save করি
+  var saveData = {};
+  Object.keys(val).forEach(function(k){
+    var v = val[k];
+    if(Array.isArray(v) || (v && typeof v === 'object' && !Array.isArray(v) && k !== 'replied')){
+      saveData[k] = JSON.stringify(v);
+    } else {
+      saveData[k] = v;
+    }
+  });
+  await fsSet('settings', key, saveData);
+}
 async function getChallenges(){
   var d=await getSetting('challenges'); return d?.list||[];
 }
@@ -619,33 +641,44 @@ var currentSupportUid = '';
 async function loadSupportMsgs(){
   $('supportList').innerHTML='<div style="text-align:center;color:var(--muted);font-size:12px;padding:16px;">লোড হচ্ছে...</div>';
   try{
-    var users = await getAllUsers();
+    // সরাসরি settings collection query করো — support_ দিয়ে শুরু
+    var r = await fetch(FS+"settings?pageSize=100", {headers:fsh()});
+    var d = await r.json();
+    var docs = (d.documents||[]);
     var supportItems = [];
-    for(var u of users){
-      try{
-        var d = await getSetting('support_'+u.uid);
-        if(d && d.lastMsg){
-          supportItems.push({uid:u.uid, name:d.name||u.name||'—', email:d.email||u.email||'—', lastMsg:d.lastMsg, lastTime:d.lastTime, replied:d.replied, msgs:d.msgs||[]});
+    for(var doc of docs){
+      var name = doc.name||'';
+      if(name.includes('support_')){
+        var data = fF(doc);
+        if(data && data.lastMsg){
+          supportItems.push({
+            uid: data.uid||'', 
+            name: data.name||'—', 
+            email: data.email||'—', 
+            lastMsg: data.lastMsg, 
+            lastTime: data.lastTime, 
+            replied: data.replied, 
+            msgs: []
+          });
         }
-      } catch(e){}
+      }
     }
     if(!supportItems.length){
       $('supportList').innerHTML='<div style="text-align:center;color:var(--muted);font-size:12px;padding:16px;">কোনো বার্তা নেই</div>';
       return;
     }
-    // unreplied আগে
     supportItems.sort((a,b)=> (a.replied?1:0)-(b.replied?1:0));
     var newCount = supportItems.filter(x=>!x.replied).length;
     if(newCount>0){ $('supportBadge').textContent=newCount+' নতুন'; $('supportBadge').style.display='inline'; }
     $('supportList').innerHTML = supportItems.map(s=>`
       <div style="background:var(--bg3);border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid ${s.replied?'var(--border)':'var(--p)'};">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <div style="font-weight:700;font-size:13px;flex:1;">${s.name}</div>
-          <span style="font-size:10px;background:${s.replied?'var(--bg2)':'rgba(255,45,85,.2)'};color:${s.replied?'var(--muted)':'var(--p)'};padding:2px 7px;border-radius:8px;">${s.replied?'replied':'নতুন'}</span>
+          <div style="font-weight:700;font-size:13px;flex:1;">${s.name||'—'}</div>
+          <span style="font-size:10px;background:${s.replied?'var(--bg2)':'rgba(255,45,85,.2)'};color:${s.replied?'var(--muted)':'var(--p)'};padding:2px 7px;border-radius:8px;">${s.replied?'✓ replied':'🔴 নতুন'}</span>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">${s.email}</div>
-        <div style="font-size:12px;color:var(--text);margin-bottom:8px;">"${s.lastMsg?.substring(0,80)||''}${s.lastMsg?.length>80?'...':''}"</div>
-        <button class="btn-s" onclick="openReply('${s.uid}','${s.name}','${s.email}')" style="width:100%;font-size:12px;">💬 বার্তা দেখো ও Reply করো</button>
+        <div style="font-size:12px;color:var(--text);margin-bottom:8px;">"${(s.lastMsg||'').substring(0,80)}${(s.lastMsg||'').length>80?'...':''}"</div>
+        <button class="btn-s" onclick="openReply('${s.uid}','${s.name||'—'}','${s.email}')" style="width:100%;font-size:12px;">💬 বার্তা দেখো ও Reply করো</button>
       </div>`).join('');
   } catch(e){ $('supportList').innerHTML='<div style="color:var(--p);font-size:12px;padding:10px;">Error: '+e.message+'</div>'; }
 }
@@ -656,7 +689,7 @@ async function openReply(uid, name, email){
   $('replyUserEmail').textContent = email;
   $('replyModal').style.display = 'flex';
   var d = await getSetting('support_'+uid);
-  var msgs = d?.msgs||[];
+  var msgs = (d && Array.isArray(d.msgs)) ? d.msgs : [];
   $('replyMsgList').innerHTML = msgs.map(m=>`
     <div style="margin-bottom:8px;display:flex;flex-direction:column;align-items:${m.from==='user'?'flex-start':'flex-end'};">
       <div style="max-width:85%;background:${m.from==='user'?'var(--bg2)':'var(--p)'};color:${m.from==='user'?'var(--text)':'#fff'};border-radius:10px;padding:8px 12px;font-size:12px;">${m.text}</div>
@@ -671,12 +704,22 @@ async function sendReply(){
   if(!txt||!currentSupportUid){ toast('Reply লেখো!','er'); return; }
   load('পাঠানো হচ্ছে...');
   try{
-    var d=await getSetting('support_'+currentSupportUid);
-    var msgs=(d?.msgs)||[];
-    msgs.push({from:'admin',text:txt,time:new Date().toLocaleString('bn-BD')});
-    await saveSetting('support_'+currentSupportUid,Object.assign(d||{},{msgs,replied:true}));
-    unload(); $('replyTxt').value=''; toast('✅ Reply পাঠানো হয়েছে!','ok');
-    openReply(currentSupportUid,$('replyUserName').textContent,$('replyUserEmail').textContent);
+    var d = await getSetting('support_'+currentSupportUid) || {};
+    var msgs = Array.isArray(d.msgs) ? d.msgs : [];
+    msgs.push({from:'admin', text:txt, time:new Date().toLocaleString('bn-BD')});
+    await saveSetting('support_'+currentSupportUid, {
+      msgs: msgs,
+      uid: d.uid||currentSupportUid,
+      email: d.email||'',
+      name: d.name||'',
+      lastMsg: d.lastMsg||'',
+      lastTime: d.lastTime||'',
+      replied: true
+    });
+    unload();
+    $('replyTxt').value='';
+    toast('✅ Reply পাঠানো হয়েছে!','ok');
+    openReply(currentSupportUid, $('replyUserName').textContent, $('replyUserEmail').textContent);
     loadSupportMsgs();
   } catch(e){ unload(); toast('❌ '+e.message,'er'); }
 }
