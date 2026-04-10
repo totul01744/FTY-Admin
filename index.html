@@ -129,6 +129,7 @@ select.fi2{cursor:pointer;}
     <!-- Stats -->
     <div class="stats-bar">
       <div class="stat-box"><div class="stat-val" id="stTotal">—</div><div class="stat-lbl">মোট ইউজার</div></div>
+      <div class="stat-box" style="border-color:rgba(255,149,0,0.4);"><div class="stat-val" id="stPending" style="color:#FF9500;">—</div><div class="stat-lbl">⏳ পেন্ডিং</div></div>
       <div class="stat-box"><div class="stat-val" id="stActive">—</div><div class="stat-lbl">Active (streak>0)</div></div>
       <div class="stat-box"><div class="stat-val" id="stChals">—</div><div class="stat-lbl">চ্যালেঞ্জ</div></div>
     </div>
@@ -202,61 +203,61 @@ select.fi2{cursor:pointer;}
         </div>
         <div style="font-size:10px;color:var(--muted);font-weight:700;margin:8px 0;text-transform:uppercase">👦 ছেলে পোশাক</div>
         <div class="grid2">
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF9500;font-weight:800;">উপরে 👦</label>
+          <div class="fg" style="background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF9500;font-weight:800;">👦 উপরে</label>
             <input class="fi2" id="fBTop" placeholder="পোশাকের নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link (না থাকলে ফাঁকা রাখো)</label>
-            <input class="fi2" id="fBTopLink" placeholder="https://daraz.com/... বা যেকোনো লিঙ্ক">
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
+            <input class="fi2" id="fBTopLink" placeholder="https://daraz.com/... (না থাকলে ফাঁকা)">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF9500;font-weight:800;">নিচে 👦</label>
+          <div class="fg" style="background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF9500;font-weight:800;">👦 নিচে</label>
             <input class="fi2" id="fBBot" placeholder="পোশাকের নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fBBotLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF9500;font-weight:800;">জুতা 👦</label>
+          <div class="fg" style="background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF9500;font-weight:800;">👦 জুতা</label>
             <input class="fi2" id="fBShoe" placeholder="জুতার নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fBShoeLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF9500;font-weight:800;">Accessories 👦</label>
-            <input class="fi2" id="fBAcc" placeholder="Accessories এর নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+          <div class="fg" style="background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF9500;font-weight:800;">👦 Accessories</label>
+            <input class="fi2" id="fBAcc" placeholder="Accessories নাম" style="margin-bottom:6px;">
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fBAccLink" placeholder="https://...">
           </div>
         </div>
         <div style="font-size:10px;color:var(--muted);font-weight:700;margin:8px 0;text-transform:uppercase">👧 মেয়ে পোশাক</div>
         <div class="grid2">
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF2D55;font-weight:800;">উপরে 👧</label>
+          <div class="fg" style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF2D55;font-weight:800;">👧 উপরে</label>
             <input class="fi2" id="fGTop" placeholder="পোশাকের নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fGTopLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF2D55;font-weight:800;">নিচে 👧</label>
+          <div class="fg" style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF2D55;font-weight:800;">👧 নিচে</label>
             <input class="fi2" id="fGBot" placeholder="পোশাকের নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fGBotLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF2D55;font-weight:800;">জুতা 👧</label>
+          <div class="fg" style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF2D55;font-weight:800;">👧 জুতা</label>
             <input class="fi2" id="fGShoe" placeholder="জুতার নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fGShoeLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF2D55;font-weight:800;">Makeup 👧</label>
-            <input class="fi2" id="fGMakeup" placeholder="Makeup এর নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+          <div class="fg" style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF2D55;font-weight:800;">👧 Makeup</label>
+            <input class="fi2" id="fGMakeup" placeholder="Makeup নাম" style="margin-bottom:6px;">
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fGMakeupLink" placeholder="https://...">
           </div>
-          <div class="fg" style="background:#1a1b2e;border-radius:10px;padding:10px;margin-bottom:8px;">
-            <label class="fl" style="color:#FF2D55;font-weight:800;">Accessories 👧</label>
-            <input class="fi2" id="fGAcc" placeholder="Accessories এর নাম" style="margin-bottom:6px;">
-            <label class="fl" style="font-size:11px;">🔗 Product Link</label>
+          <div class="fg" style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:10px;padding:10px;margin-bottom:6px;">
+            <label class="fl" style="color:#FF2D55;font-weight:800;">👧 Accessories</label>
+            <input class="fi2" id="fGAcc" placeholder="Accessories নাম" style="margin-bottom:6px;">
+            <label class="fl" style="font-size:11px;opacity:.7;">🔗 Product Link</label>
             <input class="fi2" id="fGAccLink" placeholder="https://...">
           </div>
         </div>
@@ -505,6 +506,9 @@ async function loadUsers(){
     renderUsers(allUsers);
     $('stTotal').textContent=allUsers.length;
     $('stActive').textContent=allUsers.filter(u=>u.streak>0).length;
+    var pendingCount = allUsers.filter(u=>u.approved===false&&!u.isAdmin).length;
+    var stPending = document.getElementById('stPending');
+    if(stPending) stPending.textContent=pendingCount;
   } catch(e){ $('userList').innerHTML='<div style="color:var(--p);font-size:12px;padding:10px;">Error: '+e.message+'</div>'; }
 }
 function filterU(){
@@ -535,8 +539,15 @@ function renderUsers(users){
         <div class="uch">✅ ${u.completed||0}</div>
         <div class="uch">${u.gender==='female'?'👩':'👦'} ${u.gender||'—'}</div>
         <div class="uch">${(u.unlockedTiers||['free']).includes('paid2')?'❤️ P2':(u.unlockedTiers||[]).includes('paid1')?'💛 P1':'🆓 ফ্রি'}</div>
+        <div class="uch" style="background:${u.approved===true?'rgba(0,200,100,0.15)':'rgba(255,45,85,0.15)'};color:${u.approved===true?'#00c864':'#FF2D55'};border:1px solid ${u.approved===true?'rgba(0,200,100,0.3)':'rgba(255,45,85,0.3)'};">${u.approved===true?'✅ অ্যাপ্রুভড':'⏳ পেন্ডিং'}</div>
       </div>
-      ${u.pic ? `<div style="margin-top:8px;font-size:10px;color:var(--green);">📸 প্রোফাইল ছবি আছে</div>` : `<div style="margin-top:4px;font-size:10px;color:var(--muted);">📷 ছবি নেই</div>`}
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        ${u.pic ? `<span style="font-size:10px;color:var(--green);">📸 ছবি আছে</span>` : `<span style="font-size:10px;color:var(--muted);">📷 ছবি নেই</span>`}
+        ${!u.isAdmin ? (u.approved===true
+          ? `<button onclick="revokeUser('${u.uid}','${u.name||u.email||''}')" style="padding:5px 14px;background:rgba(255,45,85,0.12);color:#FF2D55;border:1px solid rgba(255,45,85,0.35);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🔒 অ্যাক্সেস নিন</button>`
+          : `<button onclick="approveUser('${u.uid}','${u.name||u.email||''}')" style="padding:5px 14px;background:linear-gradient(135deg,#00c864,#00a050);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,200,100,0.3);">✅ অ্যাপ্রুভ করো</button>`
+        ) : '<span style="font-size:10px;color:#FF9500;">👑 Admin</span>'}
+      </div>
     </div>`).join('')
   :'<div style="text-align:center;color:var(--muted);font-size:12px;padding:16px;">কোনো ইউজার নেই</div>';
 }
@@ -545,6 +556,34 @@ async function delUser(uid,email){
   load('মুছা হচ্ছে...');
   await fetch(FSURL+'users/'+uid,{method:'DELETE',headers:fsh()});
   unload(); toast('🗑️ মুছে গেছে!','ok'); loadUsers();
+}
+
+async function approveUser(uid, name){
+  if(!confirm((name||uid)+' কে অ্যাপ্রুভ করবেন?')) return;
+  load('অ্যাপ্রুভ হচ্ছে...');
+  try{
+    // fsUpdate ব্যবহার করো — toFS() wrapper সহ সঠিকভাবে save হবে
+    await fsUpdate('users', uid, {approved: true});
+    // Local allUsers array আপডেট করো
+    var u = allUsers.find(function(x){ return x.uid===uid; });
+    if(u) u.approved = true;
+    unload();
+    toast('✅ '+(name||uid)+' অ্যাপ্রুভড! এখন সে app এ ঢুকতে পারবে।','ok');
+    renderUsers(allUsers); // loadUsers না করে renderUsers — faster
+  }catch(e){ unload(); toast('❌ Error: '+e.message,'er'); console.error(e); }
+}
+
+async function revokeUser(uid, name){
+  if(!confirm((name||uid)+' এর অ্যাক্সেস বাতিল করবেন?')) return;
+  load('বাতিল হচ্ছে...');
+  try{
+    await fsUpdate('users', uid, {approved: false});
+    var u = allUsers.find(function(x){ return x.uid===uid; });
+    if(u) u.approved = false;
+    unload();
+    toast('🔒 '+(name||uid)+' এর অ্যাক্সেস বাতিল হয়েছে।','ok');
+    renderUsers(allUsers);
+  }catch(e){ unload(); toast('❌ Error: '+e.message,'er'); console.error(e); }
 }
 
 /* ── Earning Links ── */
@@ -589,8 +628,8 @@ async function saveChallenge(){
   var idx=parseInt($('editIdx').value);
   var ch={id:parseInt($('fDay').value),day:parseInt($('fDay').value),title:$('fTitle').value,emoji:$('fEmoji').value||'🎬',description:$('fDesc').value,tier:$('fTier').value,
     location:{background:$('fBg').value,camera:$('fCam').value,lighting:$('fLight').value,shotType:$('fShot').value},
-    outfitBoy:{top:$('fBTop').value,topLink:$('fBTopLink').value,bottom:$('fBBot').value,bottomLink:$('fBBotLink').value,shoes:$('fBShoe').value,shoesLink:$('fBShoeLink').value,accessories:$('fBAcc').value,accessoriesLink:$('fBAccLink').value},
-    outfitGirl:{top:$('fGTop').value,topLink:$('fGTopLink').value,bottom:$('fGBot').value,bottomLink:$('fGBotLink').value,shoes:$('fGShoe').value,shoesLink:$('fGShoeLink').value,makeup:$('fGMakeup').value,makeupLink:$('fGMakeupLink').value,accessories:$('fGAcc').value,accessoriesLink:$('fGAccLink').value},
+    outfitBoy:{top:$('fBTop').value,topLink:$('fBTopLink')?$('fBTopLink').value:'',bottom:$('fBBot').value,bottomLink:$('fBBotLink')?$('fBBotLink').value:'',shoes:$('fBShoe').value,shoesLink:$('fBShoeLink')?$('fBShoeLink').value:'',accessories:$('fBAcc').value,accessoriesLink:$('fBAccLink')?$('fBAccLink').value:''},
+    outfitGirl:{top:$('fGTop').value,topLink:$('fGTopLink')?$('fGTopLink').value:'',bottom:$('fGBot').value,bottomLink:$('fGBotLink')?$('fGBotLink').value:'',shoes:$('fGShoe').value,shoesLink:$('fGShoeLink')?$('fGShoeLink').value:'',makeup:$('fGMakeup').value,makeupLink:$('fGMakeupLink')?$('fGMakeupLink').value:'',accessories:$('fGAcc').value,accessoriesLink:$('fGAccLink')?$('fGAccLink').value:''},
     music:[{name:$('fM1n').value,artist:$('fM1a').value,yt:$('fM1yt').value,gd:$('fM1gd').value},{name:$('fM2n').value,artist:$('fM2a').value,yt:$('fM2yt').value,gd:$('fM2gd').value}].filter(m=>m.name),
     script:$('fScript').value,postingTime:$('fPTime').value,expectedViews:$('fViews').value,
     hashtags:$('fHash').value.split(',').map(h=>h.trim()).filter(Boolean),
@@ -609,15 +648,15 @@ function editChal(i){
   $('editIdx').value=i;
   $('fDay').value=String(c.day); $('fTitle').value=c.title; $('fEmoji').value=c.emoji||''; $('fDesc').value=c.description||''; $('fTier').value=c.tier;
   $('fBg').value=c.location?.background||''; $('fCam').value=c.location?.camera||''; $('fLight').value=c.location?.lighting||''; $('fShot').value=c.location?.shotType||'';
-  $('fBTop').value=c.outfitBoy?.top||''; $('fBTopLink').value=c.outfitBoy?.topLink||'';
-  $('fBBot').value=c.outfitBoy?.bottom||''; $('fBBotLink').value=c.outfitBoy?.bottomLink||'';
-  $('fBShoe').value=c.outfitBoy?.shoes||''; $('fBShoeLink').value=c.outfitBoy?.shoesLink||'';
-  $('fBAcc').value=c.outfitBoy?.accessories||''; $('fBAccLink').value=c.outfitBoy?.accessoriesLink||'';
-  $('fGTop').value=c.outfitGirl?.top||''; $('fGTopLink').value=c.outfitGirl?.topLink||'';
-  $('fGBot').value=c.outfitGirl?.bottom||''; $('fGBotLink').value=c.outfitGirl?.bottomLink||'';
-  $('fGShoe').value=c.outfitGirl?.shoes||''; $('fGShoeLink').value=c.outfitGirl?.shoesLink||'';
-  $('fGMakeup').value=c.outfitGirl?.makeup||''; $('fGMakeupLink').value=c.outfitGirl?.makeupLink||'';
-  $('fGAcc').value=c.outfitGirl?.accessories||''; $('fGAccLink').value=c.outfitGirl?.accessoriesLink||'';
+  $('fBTop').value=c.outfitBoy?.top||''; if($('fBTopLink'))$('fBTopLink').value=c.outfitBoy?.topLink||'';
+  $('fBBot').value=c.outfitBoy?.bottom||''; if($('fBBotLink'))$('fBBotLink').value=c.outfitBoy?.bottomLink||'';
+  $('fBShoe').value=c.outfitBoy?.shoes||''; if($('fBShoeLink'))$('fBShoeLink').value=c.outfitBoy?.shoesLink||'';
+  $('fBAcc').value=c.outfitBoy?.accessories||''; if($('fBAccLink'))$('fBAccLink').value=c.outfitBoy?.accessoriesLink||'';
+  $('fGTop').value=c.outfitGirl?.top||''; if($('fGTopLink'))$('fGTopLink').value=c.outfitGirl?.topLink||'';
+  $('fGBot').value=c.outfitGirl?.bottom||''; if($('fGBotLink'))$('fGBotLink').value=c.outfitGirl?.bottomLink||'';
+  $('fGShoe').value=c.outfitGirl?.shoes||''; if($('fGShoeLink'))$('fGShoeLink').value=c.outfitGirl?.shoesLink||'';
+  $('fGMakeup').value=c.outfitGirl?.makeup||''; if($('fGMakeupLink'))$('fGMakeupLink').value=c.outfitGirl?.makeupLink||'';
+  $('fGAcc').value=c.outfitGirl?.accessories||''; if($('fGAccLink'))$('fGAccLink').value=c.outfitGirl?.accessoriesLink||'';
   var m=c.music||[];
   $('fM1n').value=m[0]?.name||''; $('fM1a').value=m[0]?.artist||''; $('fM1yt').value=m[0]?.yt||''; $('fM1gd').value=m[0]?.gd||'';
   $('fM2n').value=m[1]?.name||''; $('fM2a').value=m[1]?.artist||''; $('fM2yt').value=m[1]?.yt||''; $('fM2gd').value=m[1]?.gd||'';
