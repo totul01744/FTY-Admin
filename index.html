@@ -587,28 +587,57 @@ async function approveUser(uid, name){
   if(!confirm((name||uid)+' কে অ্যাপ্রুভ করবেন?')) return;
   load('অ্যাপ্রুভ হচ্ছে...');
   try{
-    // fsUpdate ব্যবহার করো — toFS() wrapper সহ সঠিকভাবে save হবে
-    await fsUpdate('users', uid, {approved: true});
-    // Local allUsers array আপডেট করো
+    // ধাপ ১: আগের সব data নাও
+    var existing = await fsGet('users', uid);
+    if(!existing){ throw new Error('User not found: ' + uid); }
+
+    // ধাপ ২: approved:true যোগ করে পুরো document save করো
+    var saveData = Object.assign({}, existing, { approved: true });
+    await fsSet('users', uid, saveData);
+
+    // ধাপ ৩: Verify — সত্যিই Firebase এ গেছে কিনা
+    await new Promise(r => setTimeout(r, 800)); // 800ms wait
+    var check = await fsGet('users', uid);
+    if(!check || check.approved !== true){
+      throw new Error('Firebase এ save হয়নি! আবার চেষ্টা করো।');
+    }
+
+    // ধাপ ৪: Local update
     var u = allUsers.find(function(x){ return x.uid===uid; });
     if(u) u.approved = true;
     unload();
-    toast('✅ '+(name||uid)+' অ্যাপ্রুভড!','ok');
-    await loadUsers(); // Fresh data নিয়ে render — বাটন সাথে সাথে বদলাবে
-  }catch(e){ unload(); toast('❌ Error: '+e.message,'er'); console.error(e); }
+    toast('✅ ' + (name||uid) + ' আর্কভড! এখন সে app এ ঢুকতে পারবে!', 'ok');
+    await loadUsers();
+  } catch(e) {
+    unload();
+    toast('❌ Error: ' + e.message, 'er');
+    console.error('approveUser failed:', e);
+  }
 }
 
 async function revokeUser(uid, name){
   if(!confirm((name||uid)+' এর অ্যাক্সেস বাতিল করবেন?')) return;
   load('বাতিল হচ্ছে...');
   try{
-    await fsUpdate('users', uid, {approved: false});
+    var existing = await fsGet('users', uid);
+    if(!existing){ throw new Error('User not found'); }
+    var saveData = Object.assign({}, existing, { approved: false });
+    await fsSet('users', uid, saveData);
+    await new Promise(r => setTimeout(r, 500));
+    var check = await fsGet('users', uid);
+    if(!check || check.approved !== false){
+      throw new Error('Firebase এ save হয়নি!');
+    }
     var u = allUsers.find(function(x){ return x.uid===uid; });
     if(u) u.approved = false;
     unload();
-    toast('🔒 '+(name||uid)+' এর অ্যাক্সেস বাতিল।','ok');
+    toast('🔒 ' + (name||uid) + ' এর অ্যাক্সেস বাতিল।', 'ok');
     await loadUsers();
-  }catch(e){ unload(); toast('❌ Error: '+e.message,'er'); console.error(e); }
+  } catch(e) {
+    unload();
+    toast('❌ Error: ' + e.message, 'er');
+    console.error('revokeUser failed:', e);
+  }
 }
 
 /* ── Earning Links ── */
